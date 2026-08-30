@@ -3,21 +3,22 @@ class Solution {
 
         int n = nums.length;
         int maxlen = 0;
-
-        for(int i = 0; i<n; i++){
-            int zeroes = 0;
-            for(int j =i; j<n; j++){
-                if(nums[j] == 0){
-                    zeroes++;
-                }
-                if(zeroes <= k){
-                    maxlen = Math.max(maxlen, j-i+1);
-                }
-                else{
-                    break;
-                }
+        int left = 0;
+        int zeroes = 0;
+        
+        for(int right =0; right<n; right++){
+            if(nums[right] == 0){
+                zeroes++;
             }
+            while(zeroes > k){
+                if(nums[left] == 0){
+                    zeroes--;
+                }
+                left++;
+            }
+            maxlen = Math.max(maxlen, right-left+1);
         }
         return maxlen;
     }
 }
+
