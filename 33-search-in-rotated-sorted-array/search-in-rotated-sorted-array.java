@@ -16,7 +16,7 @@ class Solution {
 
             int mid = s + (e - s) / 2;
 
-            if (nums[mid] <= nums[n - 1]) {
+            if (nums[mid] <= nums[n - 1]) { // equals to
                 e = mid - 1;
             } 
             else {
