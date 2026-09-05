@@ -8,7 +8,6 @@ class Solution {
         HashMap<Character, Integer> need = new HashMap<>();
         HashMap<Character, Integer> window = new HashMap<>();
 
-        //used to insert the characters of t into the need HashMap along with their frequency.
         for (char c : t.toCharArray())
             need.put(c, need.getOrDefault(c, 0) + 1);
 
