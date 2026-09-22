@@ -3,12 +3,10 @@ class Solution {
         
         int count = 0;
 
-        if(n >= 1000){
-            count += n - 999;
-        }
+        if(n < 1000) return 0;
 
-        if(n >= 1000000){
-            count += n - 999999;
+        for(int i = 1000; i<=n; i++){
+            count +=1;
         }
         return count;
     }
