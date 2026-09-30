@@ -1,54 +1,63 @@
 class Solution {
 
-    int m, n;
-    Boolean[][][] dp;
-
     public boolean hasValidPath(char[][] grid) {
 
-        m = grid.length;
-        n = grid[0].length;
+        int m = grid.length;
+        int n = grid[0].length;
 
-        // Total number of cells must be even
+        // Total cells must be even
         if ((m + n - 1) % 2 != 0)
             return false;
 
-        dp = new Boolean[m][n][m + n];
+        // dp[i][j][balance]
+        boolean[][][] dp = new boolean[m][n][m + n];
 
-        return solve(grid, 0, 0, 0);
-    }
-
-    private boolean solve(char[][] grid, int i, int j, int balance) {
-
-        // Add current bracket to balance
-        if (grid[i][j] == '(')
-            balance++;
-        else
-            balance--;
-
-        // Balance can never become negative
-        if (balance < 0)
+        // Starting cell must be '('
+        if (grid[0][0] == ')')
             return false;
 
-        // Destination reached
-        if (i == m - 1 && j == n - 1)
-            return balance == 0;
+        dp[0][0][1] = true;
 
-        // Already calculated
-        if (dp[i][j][balance] != null)
-            return dp[i][j][balance];
+        for (int i = 0; i < m; i++) {
 
-        boolean ans = false;
+            for (int j = 0; j < n; j++) {
 
-        // Move Down
-        if (i + 1 < m)
-            ans = solve(grid, i + 1, j, balance);
+                for (int balance = 0; balance < m + n; balance++) {
 
-        // Move Right
-        if (!ans && j + 1 < n)
-            ans = solve(grid, i, j + 1, balance);
+                    if (!dp[i][j][balance])
+                        continue;
 
-        dp[i][j][balance] = ans;
+                    // Move Down
+                    if (i + 1 < m) {
 
-        return ans;
+                        int newBalance;
+
+                        if (grid[i + 1][j] == '(')
+                            newBalance = balance + 1;
+                        else
+                            newBalance = balance - 1;
+
+                        if (newBalance >= 0)
+                            dp[i + 1][j][newBalance] = true;
+                    }
+
+                    // Move Right
+                    if (j + 1 < n) {
+
+                        int newBalance;
+
+                        if (grid[i][j + 1] == '(')
+                            newBalance = balance + 1;
+                        else
+                            newBalance = balance - 1;
+
+                        if (newBalance >= 0)
+                            dp[i][j + 1][newBalance] = true;
+                    }
+                }
+            }
+        }
+
+        return dp[m - 1][n - 1][0];
     }
 }
