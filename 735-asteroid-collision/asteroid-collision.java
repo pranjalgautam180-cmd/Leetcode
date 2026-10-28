@@ -1,12 +1,8 @@
-import java.util.*;
-
 class Solution {
     public int[] asteroidCollision(int[] asteroids) {
 
         List<Integer> list = new ArrayList<>();
-
         for (int asteroid : asteroids) {
-
             boolean destroyed = false;
 
             // Check whether a collision is possible
@@ -27,14 +23,12 @@ class Solution {
                     destroyed = true;
                     break;
                 }
-
                 // Case 3: Last asteroid is larger
                 else {
                     destroyed = true;
                     break;
                 }
             }
-
             // Add the current asteroid only if it survives
             if (!destroyed) {
                 list.add(asteroid);
@@ -47,7 +41,6 @@ class Solution {
         for (int i = 0; i < list.size(); i++) {
             result[i] = list.get(i);
         }
-
         return result;
     }
 }
