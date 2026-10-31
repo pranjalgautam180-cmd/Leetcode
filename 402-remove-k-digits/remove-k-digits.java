@@ -15,10 +15,17 @@ class Solution {
         while(k > 0){
             st.pop(); k--;
         }
-        String ans = "";  
-        while(!st.empty()){  // stack me agar element inc order me ho to
-            ans = st.pop() + ans;
+        // String ans = "";  
+        // while(!st.empty()){  // stack me agar element inc order me ho to
+        //     ans = st.pop() + ans;
+        // }
+
+        StringBuilder sb = new StringBuilder();
+        while(!st.isEmpty()){
+            sb.append(st.pop());
         }
+        sb.reverse();
+        String ans = sb.toString();
         int i=0;             // leading zero condition
         while(i < ans.length() && ans.charAt(i) == '0'){
             i++;
