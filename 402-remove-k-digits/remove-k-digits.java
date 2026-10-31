@@ -1,31 +1,30 @@
 class Solution {
     public String removeKdigits(String num, int k) {
-        Stack <Character> st = new Stack();
+        Stack <Character> st = new Stack<>();
         int n = num.length();
-        // String ans = "";
 
-        for(int i=0; i<n; i++){
+        for(int i =0; i < n; i++){
             char digit = num.charAt(i);
-            while(!st.empty() && k > 0 && st.peek() > digit){
+            while(!st.empty() && k > 0 &&
+            st.peek() > digit){
                 st.pop();
                 k--;
             }
             st.push(digit);
         }
         while(k > 0){
-            st.pop();
-            k--;
+            st.pop(); k--;
         }
-        String ans = "";
-        while(!st.empty()){
+        String ans = "";  
+        while(!st.empty()){  // stack me agar element inc order me ho to
             ans = st.pop() + ans;
         }
-        int j=0;
-        while(j< ans.length() && ans.charAt(j) == '0'){
-            j++;
+        int i=0;             // leading zero condition
+        while(i < ans.length() && ans.charAt(i) == '0'){
+            i++;
         }
-        ans = ans.substring(j);
-        if(ans.isEmpty()){
+        ans = ans.substring(i); // used to remove leading zeroes
+        if(ans.isEmpty()){ // agar stack empty hai to zero return 
             return "0";
         }
         return ans;
